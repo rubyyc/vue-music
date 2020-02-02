@@ -17,13 +17,21 @@ module.exports = {
   ],
   // required to lint *.vue files
   plugins: [
-    'vue'
+    'vue',
   ],
   // add your custom rules here
   rules: {
     // allow async-await
-    'generator-star-spacing': 'off',
+    'arrow-parens': 0,
+    'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'eol-last': 0,
+    'no-mixed-spaces-and-tabs':0,
+    // allowIndentationTabs: 2,
+    // no-tabs: ["error", { allowIndentationTabs: true }],
+    'no-tabs': 0,
+    'indent': 0,
+    'space-before-function-paren': 0
   }
 }

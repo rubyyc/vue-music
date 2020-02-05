@@ -15,6 +15,7 @@
 		data() {
 			return {
 				songs: []
+				// sortSongs: []
 			}
 		},
 		computed: {
@@ -40,6 +41,7 @@
 				}
 				getSingerDetail(this.singer.id).then((res) => {
 					if (res.code === ERR_OK) {
+						// this.songs =res.data.list
 						// console.log(res.data.list)
 						// this._normalizeSongs(res.data.list)
 						this.songs = this._normalizeSongs(res.data.list)
@@ -51,16 +53,42 @@
 				let ret = []
 				list.forEach((item) => {
 					let {musicData} = item
+					// console.log(item)
 					if (musicData.songid && musicData.albummid) {
+						// ret.push(createSong(musicData, 'www.baidu.com'))
 						getSongmp3(musicData.songmid).then((res) => {
-							ret.push(createSong(musicData, res.data[0]))
-							// console.log(6)
-							// console.log(res.data[0])
-							// console.log(6)
+							let urlObject = this.jqueryUrl(res.data[0])
+							if (urlObject.vkey) {
+								ret.push(createSong(musicData, res.data[0]))
+							}
 						})
 					}
 				})
+				// this.sortSongs = ret
+				// console.log(this.sortSongs.length)
+				// this.$nextTick(() => {
+				// 	console.log(this.sortSongs.length)
+				// })
 				return ret
+			},
+			findIndex(list, songid) {
+				return list.findIndex((item) => {
+					// console.log('test111')
+					console.log(item)
+					return item.id === songid
+				})
+			},
+			jqueryUrl(url) {
+				var arr = url.split('?')
+				var obj = {}
+				if (arr[1]) {
+					var params = arr[1].split('&')
+					for (var i = 0; i < params.length; i++) {
+						var param = params[i].split('=')
+						obj[param[0]] = param[1]
+					}
+				}
+				return obj
 			}
 		},
 		components: {

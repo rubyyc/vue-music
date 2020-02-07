@@ -51,11 +51,11 @@
 								temp.sort((a, b) => {
 									return b.id - a.id
 								})
-						}, 800)
+						}, 600)
 						setTimeout(() => {
 							// console.log(r)
 							this.songs = temp
-						}, 1500)
+						}, 2000)
 						// setTimeout(() => {
 						// 	// this.songs = this._normalizeSongs(res.data.list)
 						// 	// console.log(temp)

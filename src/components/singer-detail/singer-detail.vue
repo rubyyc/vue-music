@@ -8,7 +8,7 @@
 	import {mapGetters} from 'vuex'
 	import {getSingerDetail} from 'api/singer'
 	import {ERR_OK} from 'api/config'
-	import {createSong, getSongmp3} from 'common/js/song'
+	import {createSong, getSongmp3, jqueryUrl} from 'common/js/song'
 	import MusicList from 'components/music-list/music-list'
 
 	export default {
@@ -44,8 +44,47 @@
 						// this.songs =res.data.list
 						// console.log(res.data.list)
 						// this._normalizeSongs(res.data.list)
-						this.songs = this._normalizeSongs(res.data.list)
-						// console.log(this.songs)
+						// this.songs = this._normalizeSongs(res.data.list)
+						let temp = this._normalizeSongs(res.data.list)
+						// let r = []
+						setTimeout(() => {
+								temp.sort((a, b) => {
+									return b.id - a.id
+								})
+						}, 800)
+						setTimeout(() => {
+							// console.log(r)
+							this.songs = temp
+						}, 1500)
+						// setTimeout(() => {
+						// 	// this.songs = this._normalizeSongs(res.data.list)
+						// 	// console.log(temp)
+						// 	// temp.forEach((item) => {
+						// 	// 	let {musicData} = item
+						// 	// 	console.log(musicData)
+						// 	// })
+						// 	setTimeout(() => {
+						// 		temp.sort((a, b) => {
+						// 			return b.id - a.id
+						// 			// console.log()
+						// 			// console.log(9999)
+						// 		})
+						// 		// console.log(66666661)
+						// 		// console.log(r)
+						// 		// console.log(66666662)
+						// 	}, 1000)
+						// 	setTimeout(() => {
+						// 		// console.log(r)
+						// 		this.songs = temp
+						// 	}, 1500)
+						// }, 1000)
+						// console.log(this.songs.length)
+						// console.log(temp)
+						// temp.forEach((item) => {
+						// 	let {musicData} = item
+						// 	console.log(musicData)
+						// })
+						// console.log(3333)
 					}
 				})
 			},
@@ -57,7 +96,8 @@
 					if (musicData.songid && musicData.albummid) {
 						// ret.push(createSong(musicData, 'www.baidu.com'))
 						getSongmp3(musicData.songmid).then((res) => {
-							let urlObject = this.jqueryUrl(res.data[0])
+							// let urlObject = this.jqueryUrl(res.data[0])
+							let urlObject = jqueryUrl(res.data[0])
 							if (urlObject.vkey) {
 								ret.push(createSong(musicData, res.data[0]))
 							}
@@ -69,6 +109,10 @@
 				// this.$nextTick(() => {
 				// 	console.log(this.sortSongs.length)
 				// })
+				// console.log(1200)
+				// ret.forEach((item) => {
+				// 	console.log(100)
+				// })
 				return ret
 			},
 			findIndex(list, songid) {
@@ -77,18 +121,6 @@
 					console.log(item)
 					return item.id === songid
 				})
-			},
-			jqueryUrl(url) {
-				var arr = url.split('?')
-				var obj = {}
-				if (arr[1]) {
-					var params = arr[1].split('&')
-					for (var i = 0; i < params.length; i++) {
-						var param = params[i].split('=')
-						obj[param[0]] = param[1]
-					}
-				}
-				return obj
 			}
 		},
 		components: {

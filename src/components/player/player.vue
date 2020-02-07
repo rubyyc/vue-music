@@ -381,7 +381,7 @@
 				this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px, 0, 0)`
 				this.$refs.lyricList.$el.style[transitionDuration] = 0
 				this.$refs.middleL.style.opacity = 1 - this.touch.percent
-				this.$refs.middleL.style[transitionDuration] = `3000ms`
+				this.$refs.middleL.style[transitionDuration] = `1000ms`
 			},
 			middleTouchEnd() {
 				let offsetWidth
@@ -409,7 +409,7 @@
 				this.$refs.lyricList.$el.style[transform] = `translate3d(${offsetWidth}px, 0, 0)`
 				this.$refs.lyricList.$el.style[transitionDuration] = `${time}ms`
 				this.$refs.middleL.style.opacity = opacity
-				this.$refs.middleL.style[transitionDuration] = `3000ms`
+				this.$refs.middleL.style[transitionDuration] = `1000ms`
 			}
 		},
 		created() {

@@ -47,7 +47,7 @@
 			},
 			songs: {
 				type: Array,
-				default: null
+				default: () => []
 			},
 			title: {
 				type: String,
@@ -62,13 +62,16 @@
 		created() {
 			this.probeType = 3
 			this.listenScroll = true
+			// console.log(this.bgImage)
 		},
 		computed: {
 			bgStyle() {
+				// console.log(this.bgImage)
 				return `background-image:url(${this.bgImage})`
 			}
 		},
 		mounted() {
+			// console.log(this.bgImage)
 			this.imageHeight = this.$refs.bgImage.clientHeight
 			this.minTranslateY = -this.imageHeight + RESERVED_HEIGHT
 			this.$refs.list.$el.style.top = `${this.imageHeight}px`
@@ -76,7 +79,7 @@
 		},
 		methods: {
 			handlePlaylist(playlist) {
-				const bottom = playlist.length > 0 ? '60px' : ''
+				const bottom = playlist.length > 0 ? '60px' : 0
 				this.$refs.list.$el.style.bottom = bottom
 				this.$refs.list.refresh()
 			},

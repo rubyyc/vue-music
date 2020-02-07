@@ -14,7 +14,7 @@
   			<div class="recommend-list">
   				<h1 class="list-title">热门歌单推荐</h1>
   				<ul>
-  					<li v-for="item in discList" :key="item.dissid" class="item">
+  					<li @click="selectItem(item)" v-for="item in discList" :key="item.dissid" class="item">
               <div class="icon">
                 <img width="60" height="60" v-lazy="item.imgurl">
               </div>
@@ -30,6 +30,7 @@
         <loading></loading>
       </div>
 		</scroll>
+    <router-view></router-view>
 	</div>
 </template>
 
@@ -37,9 +38,10 @@
   import Loading from 'base/loading/loading'
   import Scroll from 'base/scroll/scroll'
 	import Slider from 'base/slider/slider'
-	import {getRecommend, getDiscList} from 'api/recommend'
+	import {getRecommend, getDiscListHot} from 'api/recommend'
 	import {ERR_OK} from 'api/config'
   import {playlistMixin} from 'common/js/mixin'
+  import {mapMutations} from 'vuex'
 
 	export default {
     mixins: [playlistMixin],
@@ -54,11 +56,11 @@
       //   this._getRecommend()
       // }, 1000)
       this._getRecommend()
-			this._getDiscList()
+      this._getDiscListHot()
 		},
 		methods: {
       handlePlaylist(playlist) {
-        const bottom = playlist.length > 0 ? '60px' : ''
+        const bottom = playlist.length > 0 ? '60px' : 0
         this.$refs.recommend.style.bottom = bottom
         this.$refs.scroll.refresh()
       },
@@ -69,8 +71,8 @@
 					}
 				})
 			},
-      _getDiscList() {
-        getDiscList().then((res) => {
+      _getDiscListHot() {
+        getDiscListHot().then((res) => {
           if (res.code === 200) {
             // #this.recommends = res.data.slider
             // console.log(res.data.list)
@@ -83,7 +85,17 @@
           this.$refs.scroll.refresh()
           this.checkLoaded = true
         }
-      }
+      },
+      selectItem(item) {
+        this.$router.push({
+          path: `/recommend/${item.dissid}`
+        })
+        this.setDisc(item)
+        // console.log(item)
+      },
+      ...mapMutations({
+        setDisc: 'SET_DISC'
+      })
 		},
 		components: {
 			Slider,

@@ -38,8 +38,9 @@ export function getRecommend() {
 // 	})
 // }
 
-export function getDiscList() {
-	const url = 'https://v1.itooi.cn/tencent/songList/hot'
+export function getDiscListHot() {
+	// const url = 'https://v1.itooi.cn/tencent/songList/hot'
+	const url = 'https://v1.itooi.cn/tencent/songList/hot?pageSize=60'
 
 	const data = Object.assign({}, {}, {
 		categoryId: 10000000,
@@ -55,4 +56,21 @@ export function getDiscList() {
 	})
 
 	// return jsonp(url, data, {})
+}
+
+export function getDiscSongList(dissid) {
+	// console.log(2222)
+	// const url = `https://v1.itooi.cn/tencent/url?id=${songId},001fXNWa3t8EQQ&quality=ape`
+	const url = `https://v1.itooi.cn/tencent/songList?id=${dissid}`
+	// const url = `https://v1.itooi.cn/tencent/url?id=${songId}&quality=flac`
+	// const url = `https://v1.itooi.cn/tencent/url?id=${songId},001fXNWa3t8EQQ&quality=320`
+	return axios.get(url, {
+		params: ''
+	}).then((res) => {
+		// console.log(1)
+		// console.log(res.data)
+		// console.log(2)
+		// return res.data.data[0]
+		return Promise.resolve(res.data)
+	})
 }

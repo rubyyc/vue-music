@@ -8,7 +8,8 @@
 	import MusicList from 'components/music-list/music-list'
 	import {mapGetters} from 'vuex'
 	import {getDiscSongList} from 'api/recommend'
-	import {getSongmp3, createSong, jqueryUrl} from 'common/js/song'
+	// import {getSongmp3, createSong, jqueryUrl} from 'common/js/song'
+	import {createSong} from 'common/js/song'
 
 	export default {
 		data() {
@@ -40,15 +41,16 @@
 					// this.songs = this._normalizeSongs(res.data[0].songlist)
 					let temp = this._normalizeSongs(res.data[0].songlist)
 						// let r = []
-						setTimeout(() => {
-								temp.sort((a, b) => {
-									return b.id - a.id
-								})
-						}, 500)
-						setTimeout(() => {
-							// console.log(r)
-							this.songs = temp
-						}, 1000)
+						// setTimeout(() => {
+						// 		temp.sort((a, b) => {
+						// 			return b.id - a.id
+						// 		})
+						// }, 500)
+						// setTimeout(() => {
+						// 	// console.log(r)
+						// 	this.songs = temp
+						// }, 1000)
+						this.songs = temp
 				})
 			},
 			_normalizeSongs(list) {
@@ -56,12 +58,13 @@
 				list.forEach((musicData) => {
 					if (musicData.id && musicData.album.id) {
 						// ret.push(createSong(musicData, 'www.baidu.com'))
-						getSongmp3(musicData.mid).then((res) => {
-							let urlObject = jqueryUrl(res.data[0])
-							if (urlObject.vkey) {
-								ret.push(createSong(musicData, res.data[0], true))
-							}
-						})
+						ret.push(createSong(musicData, '', true))
+						// getSongmp3(musicData.mid).then((res) => {
+						// 	let urlObject = jqueryUrl(res.data[0])
+						// 	if (urlObject.vkey) {
+						// 		ret.push(createSong(musicData, res.data[0], true))
+						// 	}
+						// })
 					}
 				})
 				return ret

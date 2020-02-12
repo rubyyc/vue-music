@@ -8,7 +8,8 @@
 	import {mapGetters} from 'vuex'
 	import {getSingerDetail} from 'api/singer'
 	import {ERR_OK} from 'api/config'
-	import {createSong, getSongmp3, jqueryUrl} from 'common/js/song'
+	// import {createSong, getSongmp3, jqueryUrl} from 'common/js/song'
+	import {createSong} from 'common/js/song'
 	import MusicList from 'components/music-list/music-list'
 
 	export default {
@@ -44,18 +45,22 @@
 						// this.songs =res.data.list
 						// console.log(res.data.list)
 						// this._normalizeSongs(res.data.list)
-						// this.songs = this._normalizeSongs(res.data.list)
-						let temp = this._normalizeSongs(res.data.list)
-						// let r = []
-						setTimeout(() => {
-								temp.sort((a, b) => {
-									return b.id - a.id
-								})
-						}, 600)
-						setTimeout(() => {
-							// console.log(r)
-							this.songs = temp
-						}, 2000)
+						this.songs = this._normalizeSongs(res.data.list)
+						// setTimeout(() => {
+						// 	// console.log(r)
+						// 	this.songs = temp
+						// }, 1000)
+						// let temp = this._normalizeSongs(res.data.list)
+						// // let r = []
+						// setTimeout(() => {
+						// 		temp.sort((a, b) => {
+						// 			return b.id - a.id
+						// 		})
+						// }, 600)
+						// setTimeout(() => {
+						// 	// console.log(r)
+						// 	this.songs = temp
+						// }, 2000)
 						// setTimeout(() => {
 						// 	// this.songs = this._normalizeSongs(res.data.list)
 						// 	// console.log(temp)
@@ -95,13 +100,15 @@
 					// console.log(item)
 					if (musicData.songid && musicData.albummid) {
 						// ret.push(createSong(musicData, 'www.baidu.com'))
-						getSongmp3(musicData.songmid).then((res) => {
-							// let urlObject = this.jqueryUrl(res.data[0])
-							let urlObject = jqueryUrl(res.data[0])
-							if (urlObject.vkey) {
-								ret.push(createSong(musicData, res.data[0]))
-							}
-						})
+						// let song = createSong(musicData, '')
+						// getSongmp3(musicData.songmid).then((res) => {
+						// 	// let urlObject = this.jqueryUrl(res.data[0])
+						// 	let urlObject = jqueryUrl(res.data[0])
+						// 	if (urlObject.vkey) {
+						// 		ret.push(createSong(musicData, res.data[0]))
+						// 	}
+						// })
+						ret.push(createSong(musicData, ''))
 					}
 				})
 				// this.sortSongs = ret

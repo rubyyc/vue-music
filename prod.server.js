@@ -1,11 +1,13 @@
 var express = require('express')
 var config = require('./config/index')
 var axios = require('axios')
+
+var port = process.env.PORT || config.build.port
 var app = express()
 var apiRoutes = express.Router()
-var port = process.env.PORT || config.build.port
 
-apiRoutes.get('/api/getDiscList', function (req, res) {
+
+apiRoutes.get('/getDiscList', function (req, res) {
   var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg' // 原api
   axios.get(url, {
     headers: {
@@ -20,7 +22,8 @@ apiRoutes.get('/api/getDiscList', function (req, res) {
   })
 })
 
-apiRoutes.get('/api/getSearch', function (req, res) {
+apiRoutes.get('/getSearch', function (req, res) {
+	console.log(1)
   var url = 'https://c.y.qq.com/soso/fcgi-bin/search_for_qq_cp' // 原api
   axios.get(url, {
     headers: {

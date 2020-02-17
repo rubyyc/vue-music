@@ -9,8 +9,8 @@ import fastclick from 'fastclick'
 import 'common/stylus/index.styl'
 
 /* eslint-disable no-unused-vars */
-import vConsole from 'vconsole'
-console.log('test rubyc')
+// import vConsole from 'vconsole'
+// console.log('test rubyc')
 
 Vue.config.productionTip = false
 

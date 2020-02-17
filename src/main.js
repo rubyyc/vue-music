@@ -8,6 +8,10 @@ import store from './store'
 import fastclick from 'fastclick'
 import 'common/stylus/index.styl'
 
+/* eslint-disable no-unused-vars */
+import vConsole from 'vconsole'
+console.log('test rubyc')
+
 Vue.config.productionTip = false
 
  // 手机端点击延迟300ms

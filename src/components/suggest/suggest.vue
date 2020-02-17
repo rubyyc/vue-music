@@ -65,7 +65,7 @@
 					})
 					this.setSinger(singer)
 				} else {
-					// console.log(item)
+					console.log(item)
 					this.insertSong(item)
 				}
 				this.$emit('select')
